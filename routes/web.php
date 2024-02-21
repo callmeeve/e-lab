@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\barang;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('mahasiswa.login');
 });
+Route::resource('barang', barang::class);
+Route::post('register-mahasiswa', [AuthController::class, 'registerMahasiswa']);
