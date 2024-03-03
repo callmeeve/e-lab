@@ -7,10 +7,10 @@
             <div class="col-md-9">
                 <h4 class="title">Tracking Pengajuan Anda</h4>
                 <ul class="stepper-timeline mt-2">
-                    <li>
+                    <li class="active">
                         <div class="stepper-head">
-                            <span class="stepper-head-icon">1.</span>
-                            <span class="stepper-head-text">Mengisi Pengajuan Form</span>
+                            <span class="stepper-head-icon text-dark">1.</span>
+                            <span class="stepper-head-text text-dark">Mengisi Pengajuan Form</span>
                         </div>
                         <div class="stepper-content py-2">
                             <div class="alert alert-success" role="alert">
@@ -20,8 +20,8 @@
                     </li>
                     <li>
                         <div class="stepper-head">
-                            <span class="stepper-head-icon">2.</span>
-                            <span class="stepper-head-text">Validasi Dosen</span>
+                            <span class="stepper-head-icon text-dark">2.</span>
+                            <span class="stepper-head-text text-dark">Validasi Dosen</span>
                         </div>
                         <div class="stepper-content py-2">
                             <div class="alert alert-info" role="alert">
@@ -31,8 +31,8 @@
                     </li>
                     <li>
                         <div class="stepper-head">
-                            <span class="stepper-head-icon">3.</span>
-                            <span class="stepper-head-text">Validasi Teknisi</span>
+                            <span class="stepper-head-icon text-dark">3.</span>
+                            <span class="stepper-head-text text-dark">Validasi Teknisi</span>
                         </div>
                         <div class="stepper-content py-2">
                             <div class="alert alert-info" role="alert">
@@ -42,8 +42,8 @@
                     </li>
                     <li>
                         <div class="stepper-head">
-                            <span class="stepper-head-icon">4.</span>
-                            <span class="stepper-head-text">Unduh Bukti Pengajuan</span>
+                            <span class="stepper-head-icon text-dark">4.</span>
+                            <span class="stepper-head-text text-dark">Unduh Bukti Pengajuan</span>
                         </div>
                         <div class="stepper-content py-2">
                             <div class="alert alert-info" role="alert">
