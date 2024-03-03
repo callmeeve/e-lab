@@ -8,15 +8,22 @@
   margin-top: 12px;
 }
 
-.app-brand-logo.demo svg {
-  width: 22px;
-  height: 38px;
+.app-brand-link {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0.5rem;
+} 
+
+.app-brand-logo.demo img {
+  width: 2rem;
+  height: 2rem;
 }
 
 .app-brand-text.demo {
   font-size: 1.75rem;
-  letter-spacing: -0.5px;
-  text-transform: lowercase;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  color: #696cff;
 }
 
 .uk-timeline .uk-timeline-item .uk-card {
