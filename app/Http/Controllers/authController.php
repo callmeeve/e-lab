@@ -16,6 +16,7 @@ class AuthController extends Controller
             'email' => 'required|email|unique:user',
             'password' => 'required|min:6',
         ]);
+        dd($validatedData);
 
         $user = new User();
         $user->username = $request->username;
@@ -29,6 +30,7 @@ class AuthController extends Controller
 
     public function login()
     {
+        
         return view('login');
     }
 

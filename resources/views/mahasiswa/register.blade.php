@@ -40,10 +40,10 @@
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
-
+    
                             <button type="submit" class="btn btn-primary d-grid w-100">Sign up</button>
                         </form>
-
+    
                         <p class="text-center">
                             <span>Sudah punya akun?</span>
                             <a href="{{ route('login') }}">
@@ -56,4 +56,6 @@
             </div>
         </div>
     </div>
+                <!-- Register Card -->
+
 @endsection

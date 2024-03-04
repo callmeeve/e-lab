@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nama_peminjam');
             $table->string('prodi');
             $table->string('jurusan');
+            $table->unsignedBigInteger('user_id')->nullable(); // Menambahkan kolom user_id
             $table->unsignedBigInteger('barang_id');
             $table->foreign('barang_id')->references('id_barang')->on('barang_lab')->onDelete('cascade');
             $table->integer('jumlah');

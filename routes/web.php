@@ -13,7 +13,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/register/mahasiswa', function () {
+Route::get('/mahasiswa/register', function () {
     return view('mahasiswa.register');
 });
 Route::post('/mahasiswa/register', [AuthController::class, 'registerMahasiswa'])->name('mahasiswa.registerAkun');
@@ -23,6 +23,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard/mahasiswa/profile', [MahasiswaController::class, 'showFormProfile'])->name('mahasiswa.profile');
         Route::post('/mahasiswa/register-profile', [MahasiswaController::class, 'registerProfile'])->name('mahasiswa.register');
         Route::get('/dashboard/mahasiswa/history', [MahasiswaController::class, 'historyMahasiswa'])->name('mahasiswa.history');
+        Route::get('/tracking/{id}', [PeminjamanMahasiswa::class, 'trackingMahasiswa'])->name('tracking.mahasiswa');
         // Route untuk menampilkan halaman pengajuan
         Route::get('/dasboard/mahasiswa/form-pengajuan', [PeminjamanMahasiswa::class, 'showFormPengajuan'])->name('form.pengajuan');
         Route::post('/store-pengajuan-mahasiswa', [PeminjamanMahasiswa::class, 'storePengajuan'])->name('store.pengajuan-mahasiswa');

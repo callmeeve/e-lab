@@ -37,7 +37,10 @@ class PeminjamanBarangMahasiswa extends Model
     {
         return $this->belongsTo(BarangLab::class, 'barang_id');
     }
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     // Method untuk mengubah status ke menunggu persetujuan dosen
     public function setStatusWaitingDosenApproval()
     {

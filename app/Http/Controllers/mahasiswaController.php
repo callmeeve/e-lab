@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Mahasiswa;
-
+use App\Models\PeminjamanBarangMahasiswa;
+use RealRashid\SweetAlert\Facades\Alert;
 class MahasiswaController extends Controller
 {
     public function dashboard()
@@ -65,18 +66,25 @@ class MahasiswaController extends Controller
         $mahasiswa->angkatan = $request->angkatan;
         $mahasiswa->user_id = $user_id;
         $mahasiswa->save();
-
+        Alert::success('Success', 'Registrasimu Berhasil')->showConfirmButton('OK');
         // Redirect ke halaman sukses atau halaman lain
         return redirect()->route('mahasiswa.dashboard');
     }
 
     public function historyMahasiswa()
     {
-        // Mendapatkan data pengguna yang sedang login
         $user = Auth::user();
-
-        // Mengirim data pengguna ke tampilan dashboard
-        return view('mahasiswa.history', [
+        $mahasiswa = Mahasiswa::getByUserId($user->id);
+        
+        // Pastikan mahasiswa ditemukan
+        if (!$mahasiswa) {
+            Alert::success('Error', 'Namamu tidak ditemukan')->showConfirmButton('OK');
+        }
+    
+        // Mendapatkan data pengajuan barang yang telah disetujui oleh dosen yang login
+        $pengajuanBarang = PeminjamanBarangMahasiswa::where('id_mahasiswa', $mahasiswa->id)
+            ->get();
+        return view('mahasiswa.history', compact('pengajuanBarang'),[
             'nama' => $user->username,
             'email' => $user->email,
         ]);
