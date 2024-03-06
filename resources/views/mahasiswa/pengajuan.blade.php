@@ -45,6 +45,10 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="mb-3">
+                            <label for="tanggal_pengembalian" class="form-label">Tanggal Pengembalian</label>
+                            <input type="date" class="form-control" id="tanggal_pengembalian" name="tanggal_pengembalian" required>
+                        </div>
                         <button type="submit" class="btn btn-primary">Ajukan Peminjaman</button>
                     </form>
                 </div>

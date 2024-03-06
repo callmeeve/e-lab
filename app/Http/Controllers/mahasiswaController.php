@@ -13,13 +13,24 @@ class MahasiswaController extends Controller
     {
         // Mendapatkan data pengguna yang sedang login
         $user = Auth::user();
-
-        // Mengirim data pengguna ke tampilan dashboard
-        return view('mahasiswa.dashboard', [
-            'nama' => $user->username,
-            'email' => $user->email,
-        ]);
+    
+        // Cek apakah user terkait sudah terdaftar sebagai mahasiswa
+        $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
+    
+        // Jika user terkait sudah terdaftar sebagai mahasiswa
+        if ($mahasiswa) {
+            // Mengirim data pengguna ke tampilan dashboard
+            return view('mahasiswa.dashboard', [
+                'nama' => $user->username,
+                'email' => $user->email,
+            ]);
+        } else {
+            sweetalert()->addWarning('Isi data dirimu untuk Profile ya!');
+            // Jika user belum terdaftar sebagai mahasiswa, alihkan ke halaman untuk mendaftarkan data diri
+            return redirect()->route('mahasiswa.profile');
+        }
     }
+    
 
     public function ShowFormProfile()
     {

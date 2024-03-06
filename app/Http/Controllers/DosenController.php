@@ -8,21 +8,43 @@ use App\Models\Dosen;
 use App\Models\PeminjamanBarangMahasiswa;
 class DosenController extends Controller
 {
+    
     public function dashboard()
     {
         // Mendapatkan data pengguna yang sedang login
         $user = Auth::user();
 
-        // Mengirim data pengguna ke tampilan dashboard
-        return view('dosen.dashboard', [
-            'nama' => $user->username,
-            'email' => $user->email,
-        ]);
+        // Mendapatkan data dosen terkait
+        $dosen = Dosen::getByUserId($user->id);
+
+        // Jika user terkait adalah seorang dosen
+        if ($dosen) {
+            // Menghitung jumlah pengajuan masuk
+            $countPengajuanMasuk = PeminjamanBarangMahasiswa::where('dosen_approver_id', $dosen->id)->count();
+
+            // Menghitung jumlah pengajuan yang perlu disetujui
+            $countPengajuanPerluDisetujui = PeminjamanBarangMahasiswa::where('dosen_approver_id', $dosen->id)
+                ->where('status', PeminjamanBarangMahasiswa::STATUS_WAITING_DOSEN_APPROVAL)
+                ->count();
+
+            // Mengirim data pengguna ke tampilan dashboard
+            return view('dosen.dashboard', [
+                'jumlah_pengajuan_masuk' => $countPengajuanMasuk,
+                'jumlah_pengajuan_perlu_disetujui' => $countPengajuanPerluDisetujui,
+                'nama' => $user->username,
+                'email' => $user->email,
+            ]);
+        } else {
+            sweetalert()->addWarning('Isi data dirimu untuk Profile ya!');
+            return redirect()->route('dosen.register');
+        }
     }
+
     public function ShowFormProfile()
     {
         $user = Auth::user();
-        $dosen = Dosen::getByUserId($user->id);    
+        $dosen = Dosen::getByUserId($user->id);
+
         
         if ($dosen) {
             // Jika data dosen sudah ada, tampilkan form update
@@ -36,7 +58,6 @@ class DosenController extends Controller
             // Jika tidak ada, kirimkan formulir register
             return view('dosen.profile', [
                 'dosen' => $dosen,
-                'id_dosen' => $dosen->user_id,
                 'nama' => $user->username,
                 'email' => $user->email,
             ]);
@@ -94,13 +115,10 @@ class DosenController extends Controller
         // Mendapatkan ID dosen yang sedang login
         $user = Auth::user();
         $dosen = Dosen::getByUserId($user->id);    
-    
+        
         // Mendapatkan data pengajuan barang yang telah disetujui oleh dosen yang login
-        $pengajuanBarang = PeminjamanBarangMahasiswa::where('dosen_approver_id', $dosen->id)
-            ->where('status', 'sudah_tervalidasi') // Hanya ambil yang sudah disetujui
-            ->whereNotIn('status', ['ditolak']) // Mengabaikan pengajuan yang ditolak
-            ->get();
-    
+        $pengajuanBarang = PeminjamanBarangMahasiswa::where('dosen_approver_id', $dosen->id)    // Mengabaikan pengajuan yang ditolak
+        ->get();
         // Mengirim data pengajuan barang ke view dashboard dosen
         return view('dosen.dashboardPengajuan', ['pengajuanBarang' => $pengajuanBarang], [
             'nama' => $user->username,

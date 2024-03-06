@@ -25,7 +25,7 @@
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item active">
-                        <a href="index.html" class="menu-link">
+                        <a href="{{route('mahasiswa.dashboard')}}" class="menu-link">
                             <div data-i18n="Analytics">Home</div>
                         </a>
                     </li>
@@ -58,7 +58,6 @@
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-store"></i>
                     <div data-i18n="Front Pages">Profile</div>
-                    <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item">
@@ -129,7 +128,7 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{route('mahasiswa.profile')}}">
                                 <i class="bx bx-user me-2"></i>
                                 <span class="align-middle">My Profile</span>
                             </a>

@@ -25,7 +25,7 @@
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item active">
-                        <a href="index.html" class="menu-link">
+                        <a href="{{route('dosen.dashboard')}}" class="menu-link">
                             <div data-i18n="Analytics">Home</div>
                         </a>
                     </li>
@@ -58,7 +58,6 @@
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-store"></i>
                     <div data-i18n="Front Pages">Profile</div>
-                    <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item">
@@ -130,7 +129,7 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{route('dosen.register')}}">
                                 <i class="bx bx-user me-2"></i>
                                 <span class="align-middle">My Profile</span>
                             </a>
@@ -139,10 +138,14 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="javascript:void(0);">
-                                <i class="bx bx-power-off me-2"></i>
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <span class="align-middle">Log Out</span>
                             </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
                         </li>
                     </ul>
                 </li>

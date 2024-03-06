@@ -23,30 +23,42 @@ class PeminjamanMahasiswa extends Controller
     }
     public function storePengajuan(Request $request)
     {
+        // Debugging: Cek data yang dikirimkan dari formulir
+    
         // Validasi data pengajuan
+        $request->validate([
+            'nama_peminjam' => 'required',
+            'prodi' => 'required',
+            'jurusan' => 'required',
+            'barang_id' => 'required|exists:barang_lab,id',
+            'jumlah' => 'required|integer|min:1',
+            'dosen_approver_id' => 'required|exists:dosen,id',
+            'tanggal_pengembalian' => 'required|date|after:today',
+        ]);
+    
+        // Proses pengajuan
         $user = Auth::user();
         $mahasiswa = Mahasiswa::getByUserId($user->id);
-        
-        // Proses pengajuan
+    
         $pengajuan = new PeminjamanBarangMahasiswa();
         $pengajuan->nama_peminjam = $request->nama_peminjam;
         $pengajuan->prodi = $request->prodi;
         $pengajuan->jurusan = $request->jurusan;
         $pengajuan->barang_id = $request->barang_id;
         $pengajuan->jumlah = $request->jumlah;
-        $pengajuan->status = PeminjamanBarangMahasiswa::STATUS_WAITING_DOSEN_APPROVAL; // Atur status pengajuan
-        $pengajuan->dosen_approver_id = $request->dosen_approver_id; // Set ID dosen yang menyetujui
-        $pengajuan->teknisi_lab_approver_id = null; // Reset ID teknisi lab
-        $pengajuan->tanggal_pengajuan = now(); // Tambahkan tanggal pengajuan
+        $pengajuan->status = PeminjamanBarangMahasiswa::STATUS_WAITING_DOSEN_APPROVAL;
+        $pengajuan->dosen_approver_id = $request->dosen_approver_id;
+        $pengajuan->teknisi_lab_approver_id = null;
+        $pengajuan->tanggal_pengajuan = now();
         $pengajuan->tanggal_pengembalian = $request->tanggal_pengembalian;
         $pengajuan->id_mahasiswa = $mahasiswa->id;
-        // Reset tanggal pengembalian
         $pengajuan->save();
         
-        sweetalert()->addWarning('Your file may not have been uploaded.');
+        sweetalert()->addSuccess('Pengajuanmu sudah terkirim check di history ya');
         
         return redirect()->route('mahasiswa.dashboard');
     }
+    
     
     public function setujuDosen(Request $request, $id)
     {
@@ -58,7 +70,7 @@ class PeminjamanMahasiswa extends Controller
         $pengajuan->dosen_approver_id = Auth::user()->id; // Gunakan ID dosen yang sedang login
         $pengajuan->save();
     
-        alert()->success('Hore!','Post Deleted Successfully');
+        sweetalert()->addSuccess('Pengajuan Berhasil Disetujui');
         
         return redirect()->route('dosen.dashboard');
     }
@@ -73,7 +85,7 @@ class PeminjamanMahasiswa extends Controller
         $pengajuan->teknisi_lab_approver_id = Auth::user()->id; // Gunakan ID teknisi yang sedang login
         $pengajuan->save();
     
-        alert()->success('Hore!','Post Deleted Successfully');
+        sweetalert()->addSuccess('Pengajuan Berhasil Disetujui');
         
         return redirect()->route('teknisi_lab.dashboard');
     }
@@ -91,13 +103,13 @@ class PeminjamanMahasiswa extends Controller
     
         // Kembalikan pengguna ke dashboard yang sesuai
         if ($request->user()->role === 'dosen') {
-            alert()->success('Hore!','Post Deleted Successfully');
+            sweetalert()->addSuccess('Pengajuan Berhasil Ditolak');
             return redirect()->route('dosen.dashboardPengajuan');
         } elseif ($request->user()->role === 'teknisi') {
-            alert()->success('Hore!','Post Deleted Successfully');
+            sweetalert()->addSuccess('Pengajuan Berhasil Ditolak');
             return redirect()->route('teknisi_lab.dashboard');
         } else {
-            alert()->success('Hore!','Post Deleted Successfully');
+            sweetalert()->addSuccess('Pengajuan Berhasil Ditolak');
             return redirect()->route('mahasiswa.dashboard');
         }
     }
@@ -117,6 +129,5 @@ class PeminjamanMahasiswa extends Controller
             'nama' => $user->username,
             'email' => $user->email,
         ]);
-    }
-    
+    }    
 }

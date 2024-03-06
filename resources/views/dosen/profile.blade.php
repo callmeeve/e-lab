@@ -19,7 +19,6 @@
                         <p>Mata Kuliah: {{ $dosen->matakuliah }}</p>
                     @else
                         <!-- Register Dosen Profile -->
-                        <h1>{{$id_dosen}}</h1>
                         <form action="{{ route('dosen.registerProfile') }}" method="POST">
                             @csrf
                             <div class="mb-3">

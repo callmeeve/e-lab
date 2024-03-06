@@ -13,7 +13,7 @@
                   Di E-lab <span class="fw-medium">Poliwangi</span> Pinjam dan Kembalikan
                 </p>
 
-                <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+                <a href="{{route('mahasiswa.profile')}}" class="btn btn-sm btn-outline-primary">Lihat Profile saya</a>
               </div>
             </div>
             <div class="col-sm-5 text-center text-sm-left">

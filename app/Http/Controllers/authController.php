@@ -16,21 +16,21 @@ class AuthController extends Controller
             'email' => 'required|email|unique:user',
             'password' => 'required|min:6',
         ]);
-        dd($validatedData);
-
+    
         $user = new User();
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->role = 'mahasiswa';
         $user->save();
-
+        sweetalert()->addSuccess('Registrasi berhasil! Silahkan login');
         return redirect()->route('login');
     }
+    
 
     public function login()
     {
-        
+
         return view('login');
     }
 
@@ -50,19 +50,23 @@ class AuthController extends Controller
             $request->session()->regenerate();
         
             if (Auth::user()->role === 'mahasiswa') {
+                sweetalert()->addSuccess('Login Berhasil!');
                 return redirect()->route('mahasiswa.dashboard');
             } elseif (Auth::user()->role === 'dosen') {
+                sweetalert()->addSuccess('Login Berhasil!');
                 return redirect()->route('dosen.dashboard');
             } elseif (Auth::user()->role === 'teknisi_lab') {
+                sweetalert()->addSuccess('Login Berhasil!');
                 return redirect()->route('teknisi_lab.dashboard');
             } elseif (Auth::user()->role === 'kepala_lab') {
+                 sweetalert()->addSuccess('Login Berhasil!');
                 return redirect()->route('kepala_lab.dashboard');
             } 
             else {
                 return redirect()->route('dashboard');
             }
         }
-        return redirect()->back()->withErrors(['Email dan password tidak cocok!'])->withInput();
+        return redirect()->back();
     }
 
     public function logout(Request $request)
@@ -70,6 +74,7 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login')->withSuccess('Logout berhasil!');
+        sweetalert()->addSuccess('Logout Berhasil!');
+        return redirect('/login');
     }
 }

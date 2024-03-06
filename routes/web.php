@@ -47,7 +47,6 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::middleware('role:dosen')->group(function () {
         Route::post('/dosen/register', [DosenController::class, 'registerProfile'])->name('dosen.registerProfile');
-        Route::post('/dosen/update-register', [DosenController::class, 'updateProfile'])->name('dosen.updateProfile');
         Route::get('/dashboard/dosen/register', [DosenController::class, 'ShowFormProfile'])->name('dosen.register');
         Route::get('/dashboard/dosen/dashboard-pengajuan', [DosenController::class, 'dashboardPengajuan'])->name('dosen.dashboardPengajuan');
         Route::post('/setuju-dosen/{id}', [PeminjamanMahasiswa::class, 'setujuDosen'])->name('setuju.dosen');

@@ -20,7 +20,7 @@
                         <!-- /Logo -->
                         <p class="text-center mb-2">Mohon untuk mahasiswa agar register akun terlebih dahulu</p>
 
-                        <form method="POST" action="{{ route('mahasiswa.registerAkun') }}" class="mb-3">
+                        <form method="POST" action="{{route('mahasiswa.registerAkun')}}" class="mb-3">
                             @csrf
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
