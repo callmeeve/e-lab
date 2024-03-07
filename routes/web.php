@@ -8,6 +8,7 @@ use App\Http\Controllers\KepalaController;
 use App\Http\Controllers\BarangLabController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PeminjamanMahasiswa;
+use App\Http\Controllers\ResetPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,5 +60,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/kepala_lab', [KepalaController::class, 'dashboard'])->name('kepala_lab.dashboard');
 });
 Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/reset-password', [ResetPasswordController::class, 'showResetForm'])->name('resetPassword.form');
 Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');
+Route::post('/reset-password/send-link', [ResetPasswordController::class, 'sendResetLinkEmail'])->name('reset.sendLink');
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'resetPasswordForm'])->name('reset.passwordForm');
+Route::post('/update-password', [ResetPasswordController::class, 'updatePassword'])->name('reset.updatePassword');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

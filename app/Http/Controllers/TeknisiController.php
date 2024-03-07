@@ -12,9 +12,16 @@ class TeknisiController extends Controller
     {
         // Mendapatkan data pengguna yang sedang login
         $user = Auth::user();
+        $countPengajuanMasuk = PeminjamanBarangMahasiswa::where('dosen_approver_id')->count();
 
+            // Menghitung jumlah pengajuan yang perlu disetujui
+        $countPengajuanPerluDisetujui = PeminjamanBarangMahasiswa::where('dosen_approver_id')
+                ->where('status', PeminjamanBarangMahasiswa::STATUS_WAITING_TEKNISI_APPROVAL)
+                ->count();
         // Mengirim data pengguna ke tampilan dashboard
         return view('teknisi_lab.dashboard', [
+            'jumlah_pengajuan_masuk' => $countPengajuanMasuk,
+            'jumlah_pengajuan_perlu_disetujui' => $countPengajuanPerluDisetujui,
             'nama' => $user->username,
             'email' => $user->email,
         ]);

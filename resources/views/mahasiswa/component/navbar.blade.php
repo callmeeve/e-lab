@@ -93,11 +93,23 @@
 
             <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Notification -->
-                <li class="nav-item lh-1 me-3">
-                   <a class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <i class="bx bx-bell bx-tada bx-sm"></i>
-                        <span class="badge bg-danger rounded-pill">5</span>
+                         <span class="badge bg-danger rounded-pill">5</span>
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="#">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0 me-3">
+                                        <i class="bx bx-envelope me-2"></i>
+                                        <span class="align-middle">Pengajuanmu telah disetujui!</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <!-- User -->

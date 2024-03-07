@@ -25,7 +25,7 @@
                 </a>
                 <ul class="menu-sub">
                     <li class="menu-item active">
-                        <a href="index.html" class="menu-link">
+                        <a href="{{route('teknisi_lab.dashboard')}}" class="menu-link">
                             <div data-i18n="Analytics">Home</div>
                         </a>
                     </li>
