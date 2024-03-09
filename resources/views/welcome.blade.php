@@ -45,8 +45,8 @@
                         <p class="lead text-white-50 mb-4">Dapatkan pinjaman alat laboratorium berkualitas tinggi untuk
                             kebutuhan eksperimen dan penelitian Anda dengan mudah.</p>
                         <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Mulai Sekarang</a>
-                            <a class="btn btn-outline-light btn-lg px-4" href="#!">Pelajari Lebih Lanjut</a>
+                            <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{{route('login')}}">Mulai Sekarang</a>
+                            <a class="btn btn-outline-light btn-lg px-4" href="{{route('mahasiswa.registerAkun')}}">Pelajari Lebih Lanjut</a>
                         </div>
                     </div>
                 </div>
@@ -62,21 +62,13 @@
                     <h2 class="h4 fw-bold text-dark">Pilihan Alat Lab yang Luas</h2>
                     <p>Temukan berbagai macam peralatan laboratorium berkualitas tinggi yang sesuai dengan kebutuhan
                         eksperimen dan penelitian Anda di Poliwangi.</p>
-                    <a class="text-decoration-none" href="#!">
-                        Lihat Lebih Lanjut
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
                 </div>
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i>
                     </div>
                     <h2 class="h4 fw-bold text-dark">Fasilitas Laboratorium Modern</h2>
                     <p>Manfaatkan fasilitas laboratorium terbaik dengan teknologi mutakhir untuk mendukung riset dan
-                        eksperimen Anda di Poliwangi.</p>
-                    <a class="text-decoration-none" href="#!">
-                        Telusuri Lebih Lanjut
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
+                        eksperimen Anda di Poliwangi.</p>                
                 </div>
                 <div class="col-lg-4">
                     <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i>
@@ -84,10 +76,6 @@
                     <h2 class="h4 fw-bold text-dark">Proses Peminjaman yang Mudah</h2>
                     <p>Nikmati proses peminjaman yang cepat dan mudah untuk alat laboratorium Poliwangi, sehingga Anda
                         bisa fokus pada riset dan eksperimen Anda.</p>
-                    <a class="text-decoration-none" href="#!">
-                        Pelajari Selengkapnya
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
                 </div>
             </div>
         </div>
@@ -102,7 +90,7 @@
                                 <div>
                                     <h2 class="h1 text-white mb-3 fw-bold">Temukan layanan peminjaman alat lab di Poliwangi!</h2>
                                     <p class="text-white fs-5">Dengan pelayanan kami, pengadaan alat lab menjadi lebih mudah dan efisien!</p>
-                                    <button class="btn btn-dark">Mulai pinjam</button>
+                                    <a class="btn btn-dark" href="{{route('login')}}">Mulai pinjam</a>
                                 </div>
                             </div>
                             <div class="col-xl-6 col-md-6 col-12">
