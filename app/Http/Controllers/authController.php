@@ -36,39 +36,64 @@ class AuthController extends Controller
 
     public function loginProcess(Request $request)
     {
+        // Validator untuk email dan password
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'credential' => 'required', // Form field for email or NIM
             'password' => 'required',
         ]);
-
+    
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
-        $credentials = $request->only('email', 'password');
+    
+        // Cek apakah credential yang diberikan adalah email atau NIM
+        $credentialType = filter_var($request->credential, FILTER_VALIDATE_EMAIL) ? 'email' : 'nim';
+    
+        // Cari pengguna berdasarkan credential yang sesuai
+        $user = User::where($credentialType, $request->credential)->first();
+    
+        // Jika pengguna tidak ditemukan
+        if (!$user) {
+            return back()->withErrors([
+                'login' => 'Kredensial yang diberikan tidak cocok dengan catatan kami.',
+            ]);
+        }
+    
+        // Coba melakukan autentikasi dengan credential yang diberikan
+        $credentials = [
+            $credentialType => $request->credential,
+            'password' => $request->password
+        ];
+    
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-        
-            if (Auth::user()->role === 'mahasiswa') {
-                sweetalert()->addSuccess('Login Berhasil!');
-                return redirect()->route('mahasiswa.dashboard');
-            } elseif (Auth::user()->role === 'dosen') {
-                sweetalert()->addSuccess('Login Berhasil!');
-                return redirect()->route('dosen.dashboard');
-            } elseif (Auth::user()->role === 'teknisi_lab') {
-                sweetalert()->addSuccess('Login Berhasil!');
-                return redirect()->route('teknisi_lab.dashboard');
-            } elseif (Auth::user()->role === 'kepala_lab') {
-                 sweetalert()->addSuccess('Login Berhasil!');
-                return redirect()->route('kepala_lab.dashboard');
-            } 
-            else {
-                return redirect()->route('dashboard');
+    
+            // Redirect sesuai peran pengguna
+            switch ($user->role) {
+                case 'mahasiswa':
+                    sweetalert()->addSuccess('Login Berhasil!');
+                    return redirect()->route('mahasiswa.dashboard');
+                case 'dosen':
+                    sweetalert()->addSuccess('Login Berhasil!');
+                    return redirect()->route('dosen.dashboard');
+                case 'teknisi_lab':
+                    sweetalert()->addSuccess('Login Berhasil!');
+                    return redirect()->route('teknisi_lab.dashboard');
+                case 'kepala_lab':
+                    sweetalert()->addSuccess('Login Berhasil!');
+                    return redirect()->route('kepala_lab.dashboard');
+                default:
+                    return redirect()->intended('dashboard');
             }
         }
-        return redirect()->back();
+    
+        return back()->withErrors([
+            sweetalert()->addWarning('tidak ada'),
+            'login' => 'Kredensial yang diberikan tidak cocok dengan catatan kami.',
+        ]);
     }
-
+    
+   
     public function logout(Request $request)
     {
         Auth::logout();
