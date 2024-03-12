@@ -23,6 +23,11 @@
                         <form method="POST" action="{{route('mahasiswa.registerAkun')}}" class="mb-3">
                             @csrf
                             <div class="mb-3">
+                                <label for="username" class="form-label">Nim</label>
+                                <input type="text" class="form-control" id="username" name="nim"
+                                    placeholder="Enter your username" autofocus />
+                            </div>
+                            <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
                                     placeholder="Enter your username" autofocus />

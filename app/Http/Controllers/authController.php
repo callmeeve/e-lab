@@ -12,12 +12,14 @@ class AuthController extends Controller
     public function registerMahasiswa(Request $request)
     {
         $validatedData = $request->validate([
+            'nim' => 'required|unique:user',
             'username' => 'required|unique:user',
             'email' => 'required|email|unique:user',
             'password' => 'required|min:6',
         ]);
     
         $user = new User();
+        $user->nim = $request->nim;
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
@@ -43,6 +45,7 @@ class AuthController extends Controller
         ]);
     
         if ($validator->fails()) {
+            sweetalert()->addWarning('silahkan masukan data dengan benar');
             return redirect()->back()->withErrors($validator)->withInput();
         }
     
@@ -54,6 +57,7 @@ class AuthController extends Controller
     
         // Jika pengguna tidak ditemukan
         if (!$user) {
+            sweetalert()->addWarning('tidak ada');
             return back()->withErrors([
                 'login' => 'Kredensial yang diberikan tidak cocok dengan catatan kami.',
             ]);
